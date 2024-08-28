@@ -1,9 +1,12 @@
 package com._DSF.je.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Set;
+import com._DSF.je.Entity.User;
+
 @Entity
 @Getter
 @Setter
@@ -18,27 +21,23 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-    @JsonIgnore // Avoid serialization issues
     private User teacher;
 
     @ManyToMany(mappedBy = "courses")
-    @JsonIgnore // Avoid serialization issues
     private Set<User> students;
 
+
     @OneToMany(mappedBy = "course")
-    @JsonIgnore // Avoid serialization issues
+    @JsonManagedReference
     private Set<Assignment> assignments;
 
     @OneToMany(mappedBy = "course")
-    @JsonIgnore // Avoid serialization issues
+    //@OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Quiz> quizzes;
 
     @OneToMany(mappedBy = "course")
-    @JsonIgnore // Avoid serialization issues
     private Set<Video> videos;
-
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonIgnore // Avoid serialization issues
     private Category category;
 }
