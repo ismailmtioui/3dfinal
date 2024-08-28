@@ -6,13 +6,17 @@ import com._DSF.je.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User registerUser(String username, String email, String password, String role) {
         if (userRepository.findByEmail(email).isPresent()) {
@@ -40,5 +44,38 @@ public class UserService {
         }
 
         return user;
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    // Retrieve a user by ID
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    // Update an existing user
+    public User updateUser(Long id, User userDetails) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isEmpty()) {
+            throw new RuntimeException("User not found.");
+        }
+
+        User user = userOpt.get();
+        user.setUsername(userDetails.getUsername());
+        user.setEmail(userDetails.getEmail());
+        user.setPassword(userDetails.getPassword());  // Consider password encryption
+        user.setRole(userDetails.getRole());
+
+        return userRepository.save(user);
+    }
+
+    // Delete a user by ID
+    public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("User not found.");
+        }
+        userRepository.deleteById(id);
     }
 }
