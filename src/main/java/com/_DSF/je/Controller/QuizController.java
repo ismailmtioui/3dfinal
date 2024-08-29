@@ -2,7 +2,6 @@ package com._DSF.je.Controller;
 
 import com._DSF.je.Entity.Quiz;
 import com._DSF.je.Service.QuizService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +12,11 @@ import java.util.Optional;
 @RequestMapping("/api/quizzes")
 public class QuizController {
 
-    @Autowired
-    private QuizService quizService;
+    private final QuizService quizService;
+
+    public QuizController(QuizService quizService) {
+        this.quizService = quizService;
+    }
 
     @GetMapping
     public List<Quiz> getAllQuizzes() {

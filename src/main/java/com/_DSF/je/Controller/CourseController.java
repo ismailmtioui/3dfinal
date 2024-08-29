@@ -2,10 +2,13 @@ package com._DSF.je.Controller;
 
 import com._DSF.je.Entity.Course;
 import com._DSF.je.Service.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -14,16 +17,29 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    @Autowired
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
 
-    @PostMapping
-    public ResponseEntity<Course> createCourse(@RequestBody Course course) {
-        Course createdCourse = courseService.createCourse(course);
-        return ResponseEntity.ok(createdCourse);
+
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Course> createCourse(
+            @RequestParam("course") String courseJson,
+            @RequestParam("pdfFile") MultipartFile pdfFile) {
+        try {
+            // Convert the JSON string to a Course object
+            ObjectMapper objectMapper = new ObjectMapper();
+            Course course = objectMapper.readValue(courseJson, Course.class);
+
+            // Save the course with the file
+            Course createdCourse = courseService.createCourse(course, pdfFile);
+            return ResponseEntity.ok(createdCourse);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
+
 
     @GetMapping
     public ResponseEntity<List<Course>> getAllCourses() {

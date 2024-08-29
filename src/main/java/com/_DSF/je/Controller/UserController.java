@@ -2,10 +2,8 @@ package com._DSF.je.Controller;
 
 import com._DSF.je.Entity.User;
 import com._DSF.je.Service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 

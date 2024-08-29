@@ -14,11 +14,14 @@ import java.util.Optional;
 @RequestMapping("/api/auth")
 public class ForgotPasswordController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final  UserRepository userRepository;
 
-    @Autowired
-    private EmailService emailService;
+    private final EmailService emailService;
+
+    public ForgotPasswordController(UserRepository userRepository, EmailService emailService) {
+        this.userRepository = userRepository;
+        this.emailService = emailService;
+    }
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestParam String email) {

@@ -2,10 +2,8 @@ package com._DSF.je.Controller;
 
 import com._DSF.je.Entity.Category;
 import com._DSF.je.Service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +11,11 @@ import java.util.Optional;
 @RequestMapping("/api/categories")
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping
     public List<Category> getAllCategories() {

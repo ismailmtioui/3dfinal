@@ -1,11 +1,10 @@
 package com._DSF.je.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Set;
-import com._DSF.je.Entity.User;
+
 
 @Entity
 @Getter
@@ -32,7 +31,6 @@ public class Course {
     private Set<Assignment> assignments;
 
     @OneToMany(mappedBy = "course")
-    //@OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Quiz> quizzes;
 
     @OneToMany(mappedBy = "course")
@@ -40,4 +38,10 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    private String pdfName;
+    private String pdfType;
+
+    @Lob
+    private byte[] pdfData;
 }

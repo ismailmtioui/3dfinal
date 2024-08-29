@@ -3,7 +3,6 @@ package com._DSF.je.Service;
 import com._DSF.je.Entity.User;
 import com._DSF.je.Enumeration.Role;
 import com._DSF.je.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

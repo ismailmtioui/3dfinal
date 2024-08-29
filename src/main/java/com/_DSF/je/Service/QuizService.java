@@ -3,7 +3,6 @@ package com._DSF.je.Service;
 import com._DSF.je.Entity.Quiz;
 import com._DSF.je.Repository.CourseRepository;
 import com._DSF.je.Repository.QuizRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +11,14 @@ import java.util.Optional;
 @Service
 public class QuizService {
 
-    @Autowired
-    private QuizRepository quizRepository;
+    private final QuizRepository quizRepository;
 
-    @Autowired
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
+
+    public QuizService(QuizRepository quizRepository, CourseRepository courseRepository) {
+        this.quizRepository = quizRepository;
+        this.courseRepository = courseRepository;
+    }
 
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
