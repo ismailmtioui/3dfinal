@@ -44,6 +44,8 @@ public class CourseService {
                     course.setAssignments(courseDetails.getAssignments());
                     course.setQuizzes(courseDetails.getQuizzes());
                     course.setVideos(courseDetails.getVideos());
+                    course.setDescription(courseDetails.getDescription());
+                    course.setPrice(courseDetails.getPrice());
                     return courseRepository.save(course);
                 })
                 .orElseThrow(() -> new RuntimeException("Course not found with id " + id));
