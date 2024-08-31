@@ -44,4 +44,7 @@ public class Course {
 
     @Lob
     private byte[] pdfData;
+
+    private double price;
+    private String description;
 }
