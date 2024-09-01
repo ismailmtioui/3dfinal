@@ -65,4 +65,10 @@ public class CourseController {
         courseService.deleteCourse(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Course>> searchCourses(@RequestParam String keyword) {
+        List<Course> courses = courseService.searchCourses(keyword);
+        return ResponseEntity.ok(courses);
+    }
 }

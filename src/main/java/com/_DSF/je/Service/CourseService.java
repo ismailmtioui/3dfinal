@@ -71,4 +71,8 @@ public class CourseService {
         }
     }
 
+    public List<Course> searchCourses(String keyword) {
+        return courseRepository.searchCourses(keyword);
+    }
+
 }
