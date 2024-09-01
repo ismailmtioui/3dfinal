@@ -84,4 +84,12 @@ public class CourseController {
 
         return ResponseEntity.ok(coursesByCategory);
     }
+    @GetMapping("/filterByPrice")
+    public ResponseEntity<List<Course>> filterByPrice(
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false, defaultValue = "asc") String sortOrder) {
+        List<Course> courses = courseService.filterByPrice(minPrice, maxPrice, sortOrder);
+        return ResponseEntity.ok(courses);
+    }
 }
