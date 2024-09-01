@@ -2,6 +2,7 @@ package com._DSF.je.Service;
 
 import com._DSF.je.Entity.Course;
 import com._DSF.je.Repository.CourseRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -75,4 +76,14 @@ public class CourseService {
         return courseRepository.searchCourses(keyword);
     }
 
+    public List<Course> filterByPrice(Double minPrice, Double maxPrice, String sortOrder) {
+        Sort sort = Sort.by("price");
+        if ("desc".equalsIgnoreCase(sortOrder)) {
+            sort = sort.descending();
+        } else {
+            sort = sort.ascending();
+        }
+        return courseRepository.filterByPrice(minPrice, maxPrice, sort);
+
+    }
 }

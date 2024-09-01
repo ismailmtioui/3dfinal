@@ -71,4 +71,13 @@ public class CourseController {
         List<Course> courses = courseService.searchCourses(keyword);
         return ResponseEntity.ok(courses);
     }
+
+    @GetMapping("/filterByPrice")
+    public ResponseEntity<List<Course>> filterByPrice(
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false, defaultValue = "asc") String sortOrder) {
+        List<Course> courses = courseService.filterByPrice(minPrice, maxPrice, sortOrder);
+        return ResponseEntity.ok(courses);
+    }
 }
