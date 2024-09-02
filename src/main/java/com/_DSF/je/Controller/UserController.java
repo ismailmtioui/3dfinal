@@ -1,6 +1,7 @@
 package com._DSF.je.Controller;
 
 import com._DSF.je.Entity.User;
+import com._DSF.je.Enumeration.Role;
 import com._DSF.je.Service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -77,5 +78,10 @@ public class UserController {
     @GetMapping("/search")
     public List<User> searchUsers(@RequestParam("username") String username) {
         return userService.searchUsersByUsername(username);
+    }
+
+    @GetMapping("/searchByRole")
+    public List<User> searchUsersByRole(@RequestParam("role") Role role) {
+        return userService.searchUsersByRole(role);
     }
 }
