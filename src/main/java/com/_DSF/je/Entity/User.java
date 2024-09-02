@@ -38,4 +38,6 @@ public class User {
     @OneToMany(mappedBy = "student")
     @JsonIgnore // Avoid serialization issues
     private Set<Grade> grades;
+    @OneToMany(mappedBy = "user")
+    private Set<FAQ> faqs;
 }
