@@ -47,4 +47,6 @@ public class Course {
 
     private double price;
     private String description;
+    @OneToMany(mappedBy = "course")
+    private Set<FAQ> faqs;
 }
